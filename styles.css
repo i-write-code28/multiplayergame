@@ -1,0 +1,259 @@
+:root{
+    --prevcolour:#000;
+    --newcolour:#fff;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #fff;
+    user-select: none;
+}
+
+body{
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    gap:20px
+}
+.othello-board{
+    background:#008000;
+    background: url(/wooden-background-wood-texture-brown-600nw-2477335391.webp);
+    background-size: cover;
+    width: 700px;
+    height: 700px;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    align-items: center;
+    padding: 25px;
+}
+.row{
+    width: 100%;
+    display: flex;
+    list-style-type: none;
+    gap: 0.5%;
+    height: 11%;
+}
+.cell{
+    width: 12%;
+    background:#006800;
+    background: url(/wooden-background-wood-texture-brown-600nw-2477335391.webp);
+   background-size: cover;
+box-shadow: inset -8px 8px 16px #524034,
+            inset 8px -8px 16px #a98a74;
+   border-radius: 10px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.piece{
+    width: 80%;
+    height: 80%;
+    background: #fff;
+    border-radius: 50%;
+}
+.black-piece , .white-piece{
+    display: none;
+}
+.piece:has(.black-piece:checked){
+    background: #000;
+    animation: rotate 1s;
+    --newcolour:#000;
+    --prevcolour:#fff;
+}
+.piece:has(.white-piece:checked){
+    background: #fff;
+    animation: rotate 1s;
+    --newcolour:#fff;
+    --prevcolour:#000;
+}
+@keyframes rotate {
+    0%{
+background: var(--prevcolour);
+    }
+    100%{
+background: var(--newcolour);
+transform: rotateX(180deg);
+    }
+}
+.message-popup{
+    position: absolute;
+    z-index: 10;
+    background: #fff;
+    width:200px;
+    height: 40px;
+    border-radius: 20px;
+    bottom: -100px;
+    left: 0px;
+    display: flex;
+    align-items:center ;
+    justify-content: center;
+}
+.message-popup[data-severity="error"]{
+    background: #750000;
+}
+.message-popup[data-severity="warning"]{
+    background:#f57c00;
+}
+.player1,.player2{
+    background: url(/wooden-background-wood-texture-brown-600nw-2477335391.webp);
+    width: calc((100vw - 700px) / 2);
+    height: 700px;
+    display: flex;
+    /* font-size: 50px; */
+    padding: 10px;
+    border-radius: 25px;
+    flex-direction: column;
+}
+.player-pieces{
+    height: fit-content;
+    width: calc(100% / 4);
+}
+.player-pieces-outer{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    gap:2%;
+    list-style-type: none;
+}
+.show-player-piece[data-player="1"]{
+    width: 60px;
+    height: 60px;
+    background: #000;
+    border-radius: 50%;
+}
+.show-player-piece[data-player="2"]{
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    border-radius: 50%;
+}
+.player-details{
+    width: 100%;
+    height: 10%;
+    margin-bottom: 10px;
+    font-size: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.player-details[data-player="1"]>i{
+    color:#000;
+}
+.player-name{
+    width: 80%;
+    height: 80%;
+    border-radius: 10px;
+    background: none;
+    outline: none;
+    border:solid 1px #fff;
+}
+.player-details[data-player="1"]>.player-name{
+    border:solid 1px #000;
+}
+.scoreboard{
+    width:50%;
+    height:50%;
+    border-radius: 25px;
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+.scoreboard-content{
+    width:100%;
+    height:100%;
+    background: url(/wooden-background-wood-texture-brown-600nw-2477335391.webp);
+    background-size: cover;
+    border-radius: 25px;
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in 1.5s forwards;
+
+}
+
+.half {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    background:url(/wooden-background-wood-texture-brown-600nw-2477335391.webp);
+    background-size: cover;
+    z-index: 1;
+  }
+  
+  .top-half {
+    top: 0;
+    left: -50%; 
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+    animation: moveInLeft 1.5s ease forwards;
+  }
+  
+  .bottom-half {
+    bottom: 0;
+    right: -50%;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background-position-y: 60%;
+    animation: moveInRight 1.5s ease forwards;
+  }
+  @keyframes moveInLeft {
+    0% {
+      left: -100%;
+      opacity: 0;
+    }
+    99.99%{
+        opacity: 1;
+    }
+    100% {
+      left: 0;
+      opacity: 0;
+    }
+  }
+  
+  @keyframes moveInRight {
+    0% {
+      right: -100%;
+      opacity: 0;
+    }
+    99.99%{
+        opacity: 1;
+    }
+    100% {
+      right: 0;
+      opacity: 0;
+    }
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  .backdrop{
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    background: rgba(15, 11, 11, 0.719);
+    position: absolute;
+    backdrop-filter: 5px;
+    filter: blur(50px);
+    display: none;
+  }

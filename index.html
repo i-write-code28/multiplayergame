@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Othello</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="player1">
+      <div class="player-details" data-player="1">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" class="player-name" id="player1-name" />
+      </div>
+
+      <ul class="player-pieces-outer" data-player="1">
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+      </ul>
+      <ul class="player-pieces-outer" data-player="1">
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+      </ul>
+      <ul class="player-pieces-outer" data-player="1">
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+      </ul>
+      <ul class="player-pieces-outer" data-player="1">
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+      </ul>
+      <ul class="player-pieces-outer" data-player="1">
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+      </ul>
+      <ul class="player-pieces-outer" data-player="1">
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+      </ul>
+      <ul class="player-pieces-outer" data-player="1">
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+      </ul>
+      <ul class="player-pieces-outer" data-player="1">
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+        <li class="player-pieces" data-player="1">
+          <div class="show-player-piece" data-player="1"></div>
+        </li>
+      </ul>
+    </div>
+    <div class="othello-board">
+      <ul data-row="0" class="row">
+        <li data-row="0" data-column="0" class="cell"></li>
+        <li data-row="0" data-column="1" class="cell"></li>
+        <li data-row="0" data-column="2" class="cell"></li>
+        <li data-row="0" data-column="3" class="cell"></li>
+        <li data-row="0" data-column="4" class="cell"></li>
+        <li data-row="0" data-column="5" class="cell"></li>
+        <li data-row="0" data-column="6" class="cell"></li>
+        <li data-row="0" data-column="7" class="cell"></li>
+      </ul>
+      <ul data-row="1" class="row">
+        <li data-row="1" data-column="0" class="cell"></li>
+        <li data-row="1" data-column="1" class="cell"></li>
+        <li data-row="1" data-column="2" class="cell"></li>
+        <li data-row="1" data-column="3" class="cell"></li>
+        <li data-row="1" data-column="4" class="cell"></li>
+        <li data-row="1" data-column="5" class="cell"></li>
+        <li data-row="1" data-column="6" class="cell"></li>
+        <li data-row="1" data-column="7" class="cell"></li>
+      </ul>
+      <ul data-row="2" class="row">
+        <li data-row="2" data-column="0" class="cell"></li>
+        <li data-row="2" data-column="1" class="cell"></li>
+        <li data-row="2" data-column="2" class="cell"></li>
+        <li data-row="2" data-column="3" class="cell"></li>
+        <li data-row="2" data-column="4" class="cell"></li>
+        <li data-row="2" data-column="5" class="cell"></li>
+        <li data-row="2" data-column="6" class="cell"></li>
+        <li data-row="2" data-column="7" class="cell"></li>
+      </ul>
+      <ul data-row="3" class="row">
+        <li data-row="3" data-column="0" class="cell"></li>
+        <li data-row="3" data-column="1" class="cell"></li>
+        <li data-row="3" data-column="2" class="cell"></li>
+        <li data-row="3" data-column="3" class="cell"></li>
+        <li data-row="3" data-column="4" class="cell"></li>
+        <li data-row="3" data-column="5" class="cell"></li>
+        <li data-row="3" data-column="6" class="cell"></li>
+        <li data-row="3" data-column="7" class="cell"></li>
+      </ul>
+      <ul data-row="4" class="row">
+        <li data-row="4" data-column="0" class="cell"></li>
+        <li data-row="4" data-column="1" class="cell"></li>
+        <li data-row="4" data-column="2" class="cell"></li>
+        <li data-row="4" data-column="3" class="cell"></li>
+        <li data-row="4" data-column="4" class="cell"></li>
+        <li data-row="4" data-column="5" class="cell"></li>
+        <li data-row="4" data-column="6" class="cell"></li>
+        <li data-row="4" data-column="7" class="cell"></li>
+      </ul>
+      <ul data-row="5" class="row">
+        <li data-row="5" data-column="0" class="cell"></li>
+        <li data-row="5" data-column="1" class="cell"></li>
+        <li data-row="5" data-column="2" class="cell"></li>
+        <li data-row="5" data-column="3" class="cell"></li>
+        <li data-row="5" data-column="4" class="cell"></li>
+        <li data-row="5" data-column="5" class="cell"></li>
+        <li data-row="5" data-column="6" class="cell"></li>
+        <li data-row="5" data-column="7" class="cell"></li>
+      </ul>
+      <ul data-row="6" class="row">
+        <li data-row="6" data-column="0" class="cell"></li>
+        <li data-row="6" data-column="1" class="cell"></li>
+        <li data-row="6" data-column="2" class="cell"></li>
+        <li data-row="6" data-column="3" class="cell"></li>
+        <li data-row="6" data-column="4" class="cell"></li>
+        <li data-row="6" data-column="5" class="cell"></li>
+        <li data-row="6" data-column="6" class="cell"></li>
+        <li data-row="6" data-column="7" class="cell"></li>
+      </ul>
+      <ul data-row="7" class="row">
+        <li data-row="7" data-column="0" class="cell"></li>
+        <li data-row="7" data-column="1" class="cell"></li>
+        <li data-row="7" data-column="2" class="cell"></li>
+        <li data-row="7" data-column="3" class="cell"></li>
+        <li data-row="7" data-column="4" class="cell"></li>
+        <li data-row="7" data-column="5" class="cell"></li>
+        <li data-row="7" data-column="6" class="cell"></li>
+        <li data-row="7" data-column="7" class="cell"></li>
+      </ul>
+    </div>
+    <div class="settings">
+        <label for="settings"><i class="fa-solid fa-gear"></i></label>
+        <input type="checkbox" id="settings">
+        <div class="setting-bar">
+            <ul>
+                <li><input type="checkbox"  id="showHints"><label for="showHints">Show Hints</label></li>
+            </ul>
+        </div>
+    </div>
+    <div class="player2">
+      <div class="player-details" data-player="2">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" class="player-name" id="player2-name" />
+      </div>
+
+      <ul class="player-pieces-outer" data-player="2">
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+      </ul>
+      <ul class="player-pieces-outer" data-player="2">
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+      </ul>
+      <ul class="player-pieces-outer" data-player="2">
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+      </ul>
+      <ul class="player-pieces-outer" data-player="2">
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+      </ul>
+      <ul class="player-pieces-outer" data-player="2">
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+      </ul>
+      <ul class="player-pieces-outer" data-player="2">
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+      </ul>
+      <ul class="player-pieces-outer" data-player="2">
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+      </ul>
+      <ul class="player-pieces-outer" data-player="2">
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+        <li class="player-pieces" data-player="2">
+          <div class="show-player-piece" data-player="2"></div>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="scoreboard"> 
+       
+  </div>
+  <div class="backdrop"></div>
+    <div class="message-popup" data-severity="error"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
