@@ -28,14 +28,13 @@ const isMoveValid = (rowNumber, colNumber, pieceChoice, board) => {
   return false;
 };
 const makeMove = (rowNumber, colNumber, pieceChoice, board) => {
-if(isMoveValid (rowNumber, colNumber, pieceChoice, board)){
-  flipPieces(rowNumber, colNumber, pieceChoice, board);
-  board.arr[rowNumber][colNumber] = pieceChoice;
-   return true;
-}
-else{
-  return false;
-}
+  if (isMoveValid(rowNumber, colNumber, pieceChoice, board)) {
+    flipPieces(rowNumber, colNumber, pieceChoice, board);
+    board.arr[rowNumber][colNumber] = pieceChoice;
+    return true;
+  } else {
+    return false;
+  }
 };
 const isCellEmpty = (rowNumber, colNumber, board) => {
   return board.arr[rowNumber][colNumber] === "_";
@@ -266,38 +265,68 @@ const flipInDirection = (
     }
   });
 };
-const playerPiecesBlendBg=(count,currplayer)=>{
-  if(currplayer==='b')
-{
-  for (let i = 0; i < count; i++) {
-  document.querySelectorAll(`.show-player-piece[data-player="1"]`)[i].style.background="none";
- }
-}else if(currplayer==='w'){
- for (let i = 0; i < count; i++) {
-  document.querySelectorAll(`.show-player-piece[data-player="2"]`)[i].style.background="none";
- }
-}
-}
-const displayCurrentPlayer=(currplayer)=>{
+const playerPiecesBlendBg = (count, currplayer) => {
+  if (currplayer === "b") {
+    for (let i = 0; i < count; i++) {
+      document.querySelectorAll(`.show-player-piece[data-player="1"]`)[
+        i
+      ].style.background = "none";
+    }
+  } else if (currplayer === "w") {
+    for (let i = 0; i < count; i++) {
+      document.querySelectorAll(`.show-player-piece[data-player="2"]`)[
+        i
+      ].style.background = "none";
+    }
+  }
+};
+const displayCurrentPlayer = (currplayer) => {
   document.querySelector(".player1").style.border = "none";
   document.querySelector(".player2").style.border = "none";
-  if(currplayer==='b')
-  {
-  document.querySelector(".player1").style.border="2px solid #fff";
-}else{
-  document.querySelector(".player2").style.border="2px solid #fff";
-}
+  if (currplayer === "b") {
+    document.querySelector(".player1").style.border = "2px solid #fff";
+  } else {
+    document.querySelector(".player2").style.border = "2px solid #fff";
+  }
+};
+const handleTurnSkipping = () => {
+  let hints = getHintsLocation(pieceChoice);
 
-}
+  // If current player has no valid moves
+  if (!hints.flat().some((hint) => hint === true)) {
+    // Inform the player of skipped turn
+    let msgPopup = document.querySelector(".message-popup");
+    msgPopup.dataset.severity = "warning";
+    msgPopup.style.bottom = "10px";
+    msgPopup.innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="color:yellow; margin:0px 10px 0px 0px"></i> No valid move left for player ${pieceChoice}. Turn skipped.`;
+
+    // Skip the turn and update the UI
+    setTimeout(() => {
+      msgPopup.style.bottom = "-100px";
+    }, 2000);
+
+    // Switch to the other player
+    pieceChoice = pieceChoice === "b" ? "w" : "b";
+    board.inversePieceChoice = pieceChoice === "b" ? "w" : "b";
+
+    // Update player piece UI and current player display
+    displayCurrentPlayer(pieceChoice);
+    showHints(); // Show hints for the new player (if enabled)
+
+    console.log(`No valid moves for player ${pieceChoice}. Turn is skipped.`);
+  }
+};
+
 let rowNumber,
   colNumber,
   pieceChoice = "b";
 let board = createBoard(pieceChoice);
 
 let playerPiecesUsed = { b: 2, w: 2 }; // Track pieces used by each player
-playerPiecesBlendBg(2,'b');
-playerPiecesBlendBg(2,'w');
-displayCurrentPlayer(pieceChoice)
+playerPiecesBlendBg(2, "b");
+playerPiecesBlendBg(2, "w");
+displayCurrentPlayer(pieceChoice);
+
 document.querySelectorAll(".cell").forEach((cell) => {
   cell.addEventListener("click", function () {
     rowNumber = parseInt(this.getAttribute("data-row"));
@@ -305,7 +334,7 @@ document.querySelectorAll(".cell").forEach((cell) => {
     const hints = getHintsLocation(pieceChoice);
     if (hints.flat().some((hint) => hint === true)) {
       if (makeMove(rowNumber, colNumber, pieceChoice, board)) {
-        playerPiecesUsed[pieceChoice]++; 
+        playerPiecesUsed[pieceChoice]++;
         playerPiecesBlendBg(playerPiecesUsed[pieceChoice], pieceChoice);
 
         printBoard(); // Update board visuals
@@ -318,11 +347,12 @@ document.querySelectorAll(".cell").forEach((cell) => {
         }
 
         console.log(`Current player: ${pieceChoice}`);
+        let Winner = scoreWinner();
+        displayScores(Winner.blackScore, Winner.whiteScore, Winner.winner);
         displayCurrentPlayer(pieceChoice);
-        
       } else {
         let msgPopup = document.querySelector(".message-popup");
-        msgPopup.dataset.severity="error";
+        msgPopup.dataset.severity = "error";
         msgPopup.style.bottom = "10px";
         msgPopup.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="color:red; margin:0px 10px 0px 0px"></i> Invalid move!`;
         setTimeout(() => {
@@ -330,20 +360,7 @@ document.querySelectorAll(".cell").forEach((cell) => {
         }, 2000);
       }
     } else {
-      pieceChoice = pieceChoice === "b" ? "w" : "b";
-      board.inversePieceChoice = pieceChoice === "b" ? "w" : "b";
-      console.log(`No valid moves for player ${pieceChoice}. Turn is skipped.`);
-      playerPiecesUsed[pieceChoice]++; 
-      playerPiecesUsed[inversePieceChoice]--
-      playerPiecesBlendBg(playerPiecesUsed[pieceChoice], pieceChoice);
-      playerPiecesBlendBg(playerPiecesUsed[inversePieceChoice],inversePieceChoice);
-      let msgPopup = document.querySelector(".message-popup");
-      msgPopup.dataset.severity="warning";
-      msgPopup.style.bottom = "10px";
-      msgPopup.innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="color:yellow; margin:0px 10px 0px 0px"></i> No valid move left for player ${pieceChoice} .Turn skipped`;
-      setTimeout(() => {
-        msgPopup.style.bottom = "-100px";
-      }, 2000);
+      handleTurnSkipping();
     }
   });
 });
@@ -400,73 +417,83 @@ const checkEndCondition = () => {
   let count = 0;
   for (const row of board.arr) {
     for (const cell of row) {
-      if (cell === '_') {
+      if (cell === "_") {
         count++;
-        if (count !=0) {
-          
-          return false; 
+        if (count != 0) {
+          if (getHintsLocation(pieceChoice)) {
+            return false;
+          }
+          if (!getHintsLocation(pieceChoice)) {
+            if (getHintsLocation(inversePieceChoice)) {
+              return false;
+            } else {
+              return true;
+            }
+          }
         }
-       
       }
     }
   }
   return true;
 };
-const scoreWinner=()=>{
-  let blackScore=0,whiteScore=0;
-  if(checkEndCondition()){
-  board.arr.forEach(row=> {
-    row.forEach(cell=>{
-      if (cell==='b') {
-        blackScore++;
-      } else {
-        whiteScore++;
-      }
+const scoreWinner = () => {
+  let blackScore = 0,
+    whiteScore = 0;
+  if (checkEndCondition()) {
+    board.arr.forEach((row) => {
+      row.forEach((cell) => {
+        if (cell === "b") {
+          blackScore++;
+        } else {
+          whiteScore++;
+        }
+      });
     });
-  });
-}
-let winner;
-if( !(blackScore===0 &&whiteScore===0)){
-if (blackScore>whiteScore) {
-  winner='b';
-} else if(whiteScore===blackScore ){
-  winner='s';
-}
-else{
-  winner='w';
-}
-}
-displayScores(blackScore,whiteScore,winner);
-return {blackScore,whiteScore,winner};
-}
-let hintsLocations = [];
-const getHintsLocation=(pieceChoice)=>{
-
-  hintsLocations = Array.from({ length: board.arr.length }, () => Array(board.arr[0].length).fill(false));
-
-   for (let i = 0; i < board.arr.length; i++) {
-    for (let j = 0; j < board.arr[i].length; j++) {
-        hintsLocations[i][j] = isMoveValid(i, j, pieceChoice, board);
+  }
+  let winner;
+  if (!(blackScore === 0 && whiteScore === 0)) {
+    if (blackScore > whiteScore) {
+      winner = "b";
+    } else if (whiteScore === blackScore) {
+      winner = "s";
+    } else {
+      winner = "w";
     }
   }
-  return hintsLocations; 
-}
+  displayScores(blackScore, whiteScore, winner);
+  return { blackScore, whiteScore, winner };
+};
+let hintsLocations = [];
+const getHintsLocation = (pieceChoice) => {
+  hintsLocations = Array.from({ length: board.arr.length }, () =>
+    Array(board.arr[0].length).fill(false)
+  );
+
+  for (let i = 0; i < board.arr.length; i++) {
+    for (let j = 0; j < board.arr[i].length; j++) {
+      hintsLocations[i][j] = isMoveValid(i, j, pieceChoice, board);
+    }
+  }
+  return hintsLocations;
+};
 const showHints = () => {
-  const hints = getHintsLocation(pieceChoice); 
+  const hints = getHintsLocation(pieceChoice);
   for (let i = 0; i < hints.length; i++) {
     for (let j = 0; j < hints[i].length; j++) {
-      const cellElement = document.querySelector(`.cell[data-row="${i}"][data-column="${j}"]`);
+      const cellElement = document.querySelector(
+        `.cell[data-row="${i}"][data-column="${j}"]`
+      );
       if (hints[i][j] && cellElement) {
-        cellElement.style.border = "thin solid #ADFF2F"; 
+        cellElement.style.border = "thin solid #ADFF2F";
       } else if (cellElement) {
-        cellElement.style.border = "none"; 
+        cellElement.style.border = "none";
       }
     }
   }
 };
 const clearHints = () => {
   document.querySelectorAll(".cell").forEach((cell) => {
-    cell.style.border = "none"; 
+    cell.style.border = "none";
   });
 };
 const hintCheckbox = document.querySelector("#showHints");
@@ -479,14 +506,55 @@ hintCheckbox.addEventListener("change", () => {
     clearHints();
   }
 });
-const displayScores=(blackScore,whiteScore,winner)=>{
-  ScoreboardHTML=` <div class="scoreboard-content"></div>
-        <div class="half top-half"></div>
-    <div class="half bottom-half"></div>`;
+const displayScores = (blackScore, whiteScore, winner) => {
+  let winnerName;
+  if (winner === "b") {
+    winnerName = `Player1(black) wins by ${Math.abs(
+      blackScore - whiteScore
+    )} over Player2(white)`;
+  } else if (winner === "w") {
+    winnerName = `Player2(white) wins by ${Math.abs(
+      blackScore - whiteScore
+    )} over Player1(black)`;
+  } else {
+    winnerName = "Its a stalement";
+  }
+  if (blackScore != 0 && whiteScore != 0) {
+    ScoreboardHTML = ` <div class="scoreboard-content">
+  <h1 class="winner-name wood-burn">${winnerName}</h1>
+  <span class="black-score wood-burn">Black Score:${blackScore}</span>
+  <span class="white-score wood-burn"> White Score:${whiteScore}</span>
+  </div>
+  <div class="half top-half"></div>
+<div class="half bottom-half"></div>`;
     showBackdrop();
-    document.querySelector(".scoreboard").style.display="block"
-    document.querySelector(".scoreboard").innerHTML=ScoreboardHTML;
-}
-const showBackdrop=()=>{
-  document.querySelector(".backdrop").style.display="block";
-}
+    document.querySelector(".scoreboard").style.display = "block";
+    document.querySelector(".scoreboard").innerHTML = ScoreboardHTML;
+  }
+};
+const showBackdrop = () => {
+  document.querySelector(".backdrop").style.display = "block";
+};
+const hideBackdrop = () => {
+  document.querySelector(".backdrop").style.display = "none";
+};
+let gameMode;
+// const showModes=()=>{
+//   showBackdrop();
+// document.querySelector("#start-button").addEventListener('click',()=>{
+//   if(document.querySelector("#player-v-computer").checked){
+//     gameMode="computer"
+//   }
+//   else{
+//     gameMode="player"
+//   }
+//   document.querySelector(".modes-selector-outer").innerHTML=` <div class="half top-half-reverse"></div>
+// <div class="half bottom-half-reverse"></div>`;
+// document.querySelector(".modes-selector-outer").style.animation='fadeIn 0.5s ease-in 1.2s reverse';
+// document.querySelector(".modes-selector-outer").style.top='25%';
+// setTimeout(() => {
+//   document.querySelector(".modes-selector-outer").style.opacity='0';
+// }, 1700);
+// })
+// };
+// showModes();
