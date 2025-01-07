@@ -1,0 +1,172 @@
+.othello-container{
+    display: flex;
+    width: 90%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+.othello-board {
+    background: #008000;
+    background: url(/wooden-background-wood-texture-brown-600nw-2477335391.webp);
+    background-size: cover;
+    width: 700px;
+    height: 700px;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding: 25px;
+  }
+  .row {
+    width: 100%;
+    display: flex;
+    list-style-type: none;
+    gap: 0.5%;
+    height: 11%;
+  }
+  .cell {
+    width: 12%;
+    background: #006800;
+    background: url(/wooden-background-wood-texture-brown-600nw-2477335391.webp);
+    background-size: cover;
+    box-shadow: inset -8px 8px 16px #000000, inset 8px -8px 16px #211d1a;
+    border-radius: 10px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .piece {
+    width: 80%;
+    height: 80%;
+    background: #fff;
+    border-radius: 50%;
+  }
+  .black-piece,
+  .white-piece {
+    display: none;
+  }
+  .piece:has(.black-piece:checked) {
+    background: #000;
+    background: radial-gradient(circle at 30% 30%, #222, #000);
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.6), 0 4px 6px rgba(0, 0, 0, 0.8),
+      0 -2px 4px rgba(255, 255, 255, 0.1);
+    animation: rotate 1s;
+    --newcolour: #000;
+    --prevcolour: #fff;
+  }
+  .piece:has(.white-piece:checked) {
+    background: #fff;
+    background: radial-gradient(circle at 30% 30%, #ffffff, #d3d3d3);
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.6),
+      0 -2px 4px rgba(255, 255, 255, 0.2);
+    animation: rotate 1s;
+    --newcolour: #fff;
+    --prevcolour: #000;
+  }
+  @keyframes rotate {
+    0% {
+      background: var(--prevcolour);
+    }
+    100% {
+      background: var(--newcolour);
+      transform: rotateX(180deg);
+    }
+  }
+  .message-popup {
+    position: absolute;
+    z-index: 10;
+    background: #fff;
+    width: 200px;
+    height: 40px;
+    border-radius: 20px;
+    bottom: -100px;
+    left: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .message-popup[data-severity="error"] {
+    background: #750000;
+  }
+  .message-popup[data-severity="warning"] {
+    background: #f57c00;
+  }
+  .player1,
+  .player2 {
+    background: url(/wooden-background-wood-texture-brown-600nw-2477335391.webp);
+    width: calc((90vw - 700px) / 2);
+    height: 700px;
+    display: flex;
+    /* font-size: 50px; */
+    padding: 10px;
+    border-radius: 25px;
+    flex-direction: column;
+  }
+  .player-pieces {
+    height: fit-content;
+    width: calc(100% / 4);
+  }
+  .player-pieces-outer {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    gap: 2%;
+    list-style-type: none;
+  }
+  .show-player-piece[data-player="1"] {
+    width: 60px;
+    height: 60px;
+    background: #000;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #222, #000);
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.6), 0 4px 6px rgba(0, 0, 0, 0.8),
+      0 -2px 4px rgba(255, 255, 255, 0.1);
+  }
+  .show-player-piece[data-player="2"] {
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ffffff, #d3d3d3);
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.6),
+      0 -2px 4px rgba(255, 255, 255, 0.2);
+  }
+  .player-details {
+    width: 100%;
+    height: 10%;
+    margin-bottom: 10px;
+    font-size: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  .player-details[data-player="1"] > i {
+    color: #000;
+  }
+  .player-name {
+    width: 80%;
+    height: 80%;
+    border-radius: 10px;
+    background: none;
+    outline: none;
+    border: solid 1px #fff;
+  }
+  .player-details[data-player="1"] > .player-name {
+    border: solid 1px #000;
+    color: #000;
+    font-size: 25px;
+    font-family: "Georgia", serif;
+    font-weight: 900;
+    text-align: center;
+  }
+  .player-details[data-player="2"] > .player-name {
+    color: #fff;
+    font-size: 25px;
+    font-family: "Georgia", serif;
+    font-weight: 900;
+    text-align: center;
+  }
