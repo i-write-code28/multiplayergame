@@ -4,6 +4,7 @@ import { useEffect,useState } from 'react';
 import {useSelector} from "react-redux";
 import "./css/waitingRoom.css";
 // import {useRouteAndSocketManager} from "../ApiResponse/socketManager"
+// import {useRouteAndSocketManager} from "../ApiResponse/socketManager.js"
 function WaitingRoom() {
   const [data,setData]=useState({})
   const tempData=useSelector(state=>({
@@ -13,14 +14,18 @@ function WaitingRoom() {
   }));
 
   useEffect(() => {
+    // socket.connect();
+    //socket.connected then nothing else make socket connection
    const timer=setTimeout(()=>{
     // console.log(useRouteAndSocketManager())
     // useRouteAndSocketManager();
     setData(tempData)
    },550)
-  
+  //TODO: remove timeout use if
     return () => {
       clearTimeout(timer)
+      // useRouteAndSocketManager();
+      //socket.disconnect();
     }
   }, [data])
   

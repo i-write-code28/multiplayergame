@@ -1,11 +1,12 @@
-//TODO:  Othello init ko listen kro agr status 200 hai toh loading wala dikhao agr kuch aur hai toh uska component dikhao ab iske liye jo data aaya hai usko usedispatch se store me bhejo inside a useEffect jisse jitna baar data.status change ho utna baar use dispatch kaam kre and in the loading page use selector se store se puch lenge and jo value aayega usko usestate se variable me store Krna hoga taki ui update ho ske
 
 import React, { useRef, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import {useNavigate} from "react-router-dom";
+import socket from "../ApiResponse/socketManager";
 import "./app.css";
+
 const BoardGame = () => {
   const { scene } = useGLTF("/boardgame.glb");
   return <primitive object={scene} scale={[0.035, 0.035, 0.035]} />;
@@ -46,6 +47,7 @@ const RotatingControls = ({ enableZoom }) => {
 const App = () => {
 const navigate=useNavigate();
 
+
 const gameModeInit=()=>{
 navigate('/games')
 }
@@ -73,7 +75,6 @@ navigate('/games')
           </div>
           <div className="home-content">
             <h1>Missing Playing with friends ?</h1>
-            {/* no worry now you can play online */}
             <button onClick={gameModeInit}>Play Games</button>
           </div>
    </div>

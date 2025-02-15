@@ -46,43 +46,43 @@ store.dispatch(setMyId(data));
 export default socket;
 //TODO:fix this 
 
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+// import { useEffect } from 'react';
+// import { useLocation } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
 
 
-export function useRouteAndSocketManager() {
-  const location = useLocation();
-  // const dispatch = useDispatch();
+// export function useRouteAndSocketManager() {
+//   const location = useLocation();
+//   // const dispatch = useDispatch();
 
-  useEffect(() => {
-    // Handle socket connection for `/games/*` routes
-    if (location.pathname.startsWith('/games/')) {
-      if (!socket || !socket.connected) {
-        console.log('Socket connected:', socket.id);
-      }
-    }
+//   useEffect(() => {
+//     // Handle socket connection for `/games/*` routes
+//     if (location.pathname.startsWith('/games/')) {
+//       if (!socket || !socket.connected) {
+//         console.log('Socket connected:', socket.id);
+//       }
+//     }
 
-    // Handle route-based behavior
-    if (location.pathname === '/') {
-      // Disconnect socket when navigating to `/`
-      if (socket && socket.connected) {
-        socket.disconnect();
-        console.log('Socket disconnected');
-      }
-    } else if (!location.pathname.startsWith('/games/')) {
-      // Reset Redux state for routes outside `/games/`
-      store.dispatch(resetGame());
-    }
+//     // Handle route-based behavior
+//     if (location.pathname === '/') {
+//       // Disconnect socket when navigating to `/`
+//       if (socket && socket.connected) {
+//         socket.disconnect();
+//         console.log('Socket disconnected');
+//       }
+//     } else if (!location.pathname.startsWith('/games/')) {
+//       // Reset Redux state for routes outside `/games/`
+//       store.dispatch(resetGame());
+//     }
 
-    return () => {
-      // Disconnect socket when the component using this hook unmounts
-      if (socket && socket.connected) {
-        socket.disconnect();
-        console.log('Socket disconnected on cleanup');
-      }
-    };
-  }, [location, dispatch]);
+//     return () => {
+//       // Disconnect socket when the component using this hook unmounts
+//       if (socket && socket.connected) {
+//         socket.disconnect();
+//         console.log('Socket disconnected on cleanup');
+//       }
+//     };
+//   }, [location, store.dispatch]);
 
-  return socket; // Return socket instance for further usage if needed
-}
+//   return socket; // Return socket instance for further usage if needed
+// }

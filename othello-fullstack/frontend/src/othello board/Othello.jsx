@@ -9,6 +9,7 @@ function OthelloPlayer({playerId}) {
             <span className="player-name">Player {playerId}</span>
           </div>
           {
+            //TODO:array with address and color values and iterate over it
   Array(8).fill().map((_, i) => (
     <ul className="player-pieces-outer" data-player={`${playerId}`} key={i}>
      {
