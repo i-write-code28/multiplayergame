@@ -11,6 +11,7 @@ app.use(cookieParser());
 //routes import
 import userRouter from "./routes/user.routes.js";
 app.use("/api/v1/users",userRouter)
+app.use(cors({origin:'*'}))
 const server = http.createServer(app);
 const io =new Server(server,{
   cors:{

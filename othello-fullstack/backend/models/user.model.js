@@ -60,13 +60,18 @@ const userSchema = new Schema({
         type:String
     },
     verificationToken:{
-        type:String,
-        default:null,
-        required:true
+       type:String,
+       default:null,
+       required:true
     },
     isVerified:{
         type:Boolean,
         default:false
+    },
+    verificationTokenExpiryDate:{
+        type:Date,
+        default:null,
+        required:true
     }
 },{
     timestamps:true
