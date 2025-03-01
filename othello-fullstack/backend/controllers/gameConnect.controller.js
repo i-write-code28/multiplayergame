@@ -43,13 +43,13 @@ async function handleDisconnect(player, opponent, gameDetails, gameIo) {
     };
 
     gameIo.to(gameDetails.roomId).emit("game_update", newGameDetails);
-    
+    console.log(player.id)
     // Add the disconnecting player to the reconnect list
-    await redis.sadd("reconnect", `${player.id}#-#${gameDetails.roomId}`);
+    await redis.hset("reconnect", `${player.id}`, `${gameDetails.roomId}`);
     
     // Set a timer to check for reconnection or game timeout
     setTimeout(async () => {
-        const isPlayerReconnected = await redis.sismember("reconnect", `${player.id}#-#${gameDetails.roomId}`);
+        // const isPlayerReconnected = await redis.sismember("reconnect", `${player.id}#-#${gameDetails.roomId}`);
         
         if (isPlayerReconnected) {
             const gameOverData = {
@@ -58,32 +58,38 @@ async function handleDisconnect(player, opponent, gameDetails, gameIo) {
                 winner: opponent.color,
                 reason: "Player disconnected"
             };
-            await redis.set(gameDetails.roomId, JSON.stringify(gameOverData));
+            // await redis.set(gameDetails.roomId, JSON.stringify(gameOverData));
             gameIo.to(gameDetails.roomId).emit("game_over", gameOverData);
         } else {
-            await redis.srem("reconnect", `${player.id}#-#${gameDetails.roomId}`);
+            // await redis.srem("reconnect", `${player.id}#-#${gameDetails.roomId}`);
         }
     }, 40000); // Reconnection timeout after 40 seconds
 }
 
 async function playersConnect(gameIo, socket) {
-    socket.on("reconnect", async (playerId) => {
-        let cursor = '0';
-        do {
-            const [newCursor, results] = await redis.sscan('reconnect', cursor, 'MATCH', `${playerId}#-#`);
-            cursor = newCursor;
-            for (const key of results) {
-                const parts = key.split('#-#');
-                if (parts[0] === playerId) {
-                    const roomId = parts[1];
-                    gameIo.in(socket.id).socketsJoin(roomId);
-                    await reconnectPlayer(playerId, roomId, gameIo);
-                    break;
-                }
-            }
-        } while (cursor !== '0'); // Continue scanning until cursor is back to 0
-    });
-    
+    socket.on("reconnect", async (data) => {
+        
+        
+    //     let cursor = '0';
+    //     do {
+    //         const [newCursor, results] = await redis.sscan('reconnect', cursor, 'MATCH', `${playerId}#-#`);
+    //         cursor = newCursor;
+    //         console.log(newCursor, results);
+    //         for (const key of results) {
+    //             const parts = key.split('#-#');
+    //             if (parts[0] === playerId) {
+    //                 const roomId = parts[1];
+    //                 gameIo.in(socket.id).socketsJoin(roomId);
+    //                 console.log(roomId,parts[0])
+    //                 await reconnectPlayer(playerId, roomId, gameIo);
+    //                 break;
+    //             }
+    //         }
+    //     } while (cursor !== '0'); 
+    // });
+    const res4 = await redis.hget('reconnect', `${data.playerId}`)
+console.log(res4)
+    })
     socket.on("getmyid", () => {
         const playerID = `${socket?.user?._id || socket.id}#-#${socket.id}`;
         socket.emit("yourid", playerID.split("#-#")[0]);
@@ -129,6 +135,7 @@ async function playersConnect(gameIo, socket) {
                 gameIo.to(player1socketId).emit("match-fixed", gameDetails);
                 gameIo.to(player2socketId).emit("match-fixed", gameDetails);
                 gameIo.in([player1socketId, player2socketId]).socketsJoin(gameDetails.roomId);
+                
                 await redis.set(gameDetails.roomId, JSON.stringify(gameDetails), "EX", GAMEEXPIRYTIME);
                 othelloGameManager(gameIo, gameDetails);
             }
@@ -136,4 +143,4 @@ async function playersConnect(gameIo, socket) {
     });
 }
 
-export { playersConnect };
+export { playersConnect ,handleDisconnect};

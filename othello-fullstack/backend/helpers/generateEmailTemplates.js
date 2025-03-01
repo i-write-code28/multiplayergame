@@ -6,7 +6,7 @@ export const generateEmailTemplates = (username, token, email = "", reason = "")
 
     switch (reason) {
         case "verify":
-            link = `${APPURL}/auth/verify/${token}`;
+            link = `${APPURL}/auth/verify/?token=${token}`;
             html = `
 <body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
     <table width="100%" cellspacing="0" cellpadding="0">
@@ -33,7 +33,7 @@ export const generateEmailTemplates = (username, token, email = "", reason = "")
             break;
 
         case "forgotPassword":
-            link = `${APPURL}/auth/reset-password/${token}`;
+            link = `${APPURL}/auth/reset-password/?token=${token}`;
             html = `
 <body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
     <table width="100%" cellspacing="0" cellpadding="0">
@@ -83,7 +83,7 @@ export const generateEmailTemplates = (username, token, email = "", reason = "")
             break;
 
         case "emailChangeVerification":
-            link = `${APPURL}/auth/verify-email-change/${token}`;
+            link = `${APPURL}/auth/verify-email-change/?token=${token}`;
             html = `
 <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
     <div style="width: 100%; max-width: 600px; margin: 20px auto; background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">

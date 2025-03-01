@@ -63,7 +63,7 @@ const SpotifyClient={
     auth:{
         tokenHost:process.env.SPOTIFY_TOKEN_HOST,
         authorizePath:'/authorize',
-        tokenPath:'/token'
+        tokenPath:'api/token'
     },
     options: {
         authorizationMethod: 'body',

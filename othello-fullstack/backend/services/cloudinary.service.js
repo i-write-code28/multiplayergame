@@ -11,10 +11,16 @@ const uploadOnCloudinary=async(localFilePath)=>{
         const response=await cloudinary.uploader.upload(localFilePath,{
            resource_type:"auto"
         })
+        if(!localFilePath.includes("https://ui-avatars.com/"))
+        {
         fs.unlinkSync(localFilePath);
+        }
         return response
     } catch (error) {
-        fs.unlinkSync(localFilePath);
+        if(!localFilePath.includes("https://ui-avatars.com/"))
+            {
+            fs.unlinkSync(localFilePath);
+            }
         return null;
     }
 }

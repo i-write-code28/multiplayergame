@@ -22,9 +22,24 @@ const userSchema = new Schema({
             type:String,
 
         },
+        oauth:{
+                providers:{
+                providerName:{
+                    type:String,
+                    unique: true,
+                    default:null,
+                    enum:['google','github','spotify','microsoft','facebook']
+                },
+                sub:{
+                    type: String,
+                    default:null,
+                    unique: true
+                }
+            }
+        },
     password: {
          type: String,
-          required: true 
+          required: true,
         },
     rating: { 
         type: Number,
@@ -61,8 +76,7 @@ const userSchema = new Schema({
     },
     verificationToken:{
        type:String,
-       default:null,
-       required:true
+       default:null
     },
     isVerified:{
         type:Boolean,
@@ -70,9 +84,28 @@ const userSchema = new Schema({
     },
     verificationTokenExpiryDate:{
         type:Date,
+        default:null
+    },
+    TwoFAchallenge:{
+        type:String,
+        default:null
+    },
+    TwoFAEnabled:{
+         type:Boolean,
+         default:false
+     },
+     TwoFAverified:{
+        type:Boolean,
+        default:false
+     },
+     PassKey:{
+        type:String,
         default:null,
-        required:true
-    }
+        required:function(){
+            return (this.TwoFAEnabled && this.TwoFAverified)
+        }
+     },
+     
 },{
     timestamps:true
 
