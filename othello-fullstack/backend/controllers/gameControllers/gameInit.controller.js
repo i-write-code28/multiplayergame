@@ -1,7 +1,7 @@
-import OthelloGame from "../gameLogics/othelloLogic.js";
+import OthelloGame from "../../gameLogics/othelloLogic.js";
 // import { redis } from "../db/connectRedisDB.js";
 import { nanoid } from "nanoid";
-import { GAMEEXPIRYTIME, NANOIDLENGTH, PLAYERWAITTIME } from "../constants.js";
+import { GAMEEXPIRYTIME, NANOIDLENGTH, PLAYERWAITTIME } from "../../constants.js";
 import { othelloGameManager } from "./othelloGameManager.controller.js";
 
 const InitHandler = (player1ID, player2ID) => {

@@ -1,5 +1,5 @@
-import OthelloGame from "../gameLogics/othelloLogic.js";
-import { redis } from "../db/connectRedisDB.js";
+import OthelloGame from "../../gameLogics/othelloLogic.js";
+import { redis } from "../../db/connectRedisDB.js";
 import { generateInitResponse } from "./gameInit.controller.js";
 import { handleDisconnect } from "./gameConnect.controller.js";
 async function othelloGameManager(gameIo, gameDetails) {

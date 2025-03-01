@@ -1,8 +1,8 @@
-import { redis } from "../db/connectRedisDB.js";
+import { redis } from "../../db/connectRedisDB.js";
 import { othelloGameManager } from "./othelloGameManager.controller.js";
 import { InitHandler, generateInitResponse } from "./gameInit.controller.js";
 import { nanoid } from "nanoid";
-import { GAMEEXPIRYTIME, PLAYERWAITTIME } from "../constants.js";
+import { GAMEEXPIRYTIME, PLAYERWAITTIME } from "../../constants.js";
 
 // Handle the reconnection of players
 async function reconnectPlayer(playerId, roomId, gameIo) {
